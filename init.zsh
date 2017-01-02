@@ -47,6 +47,11 @@ function fuzzy-open-directory() {
         return 0
     fi
 
+    # Search for exact string
+    fod_filepath=$(mdfind -onlyin $fod_path "kMDItemContentType == public.folder && kMDItemDisplayName == '$fod_query'c" \
+        | grep -v $HOME/Library \
+        | head -1)
+
     # Search for exact substring
     fod_filepath=$(mdfind -onlyin $fod_path "kMDItemContentType == public.folder && kMDItemDisplayName == '*$fod_query*'c" \
         | grep -v $HOME/Library \
