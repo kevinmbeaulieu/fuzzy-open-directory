@@ -15,9 +15,21 @@ Options:
     -p, --path   Search only within the specified path (default: ~).
 
 
-
 Examples:
 
     ~$ fuzzy-open-directory myproj # cd into ~/Documents/Projects/MyProject
     
     ~$ fuzzy-open-directory gdrive # cd into Google Drive
+    
+   
+Install (using Prezto/zsh):
+    
+1. Clone this repo into `~/.zprezto/modules/fuzzy-open-directory
+        
+2. Append 'fuzzy-open-directory' to the line in your `~/.zprezto/runcoms/zpreztorc` which starts with `zstyle ':prezto:load'...`
+
+Install (manually):
+
+1. Clone this repo
+
+2. Add `source <path to this repo>/init.zsh` to your shell's runcom (e.g., `~/.bashrc`, `~/.zshrc`
