@@ -48,24 +48,33 @@ function fuzzy-open-directory() {
     fi
 
     # Search for exact string
-    fod_filepath=$(mdfind -onlyin $fod_path "kMDItemContentType == public.folder && kMDItemDisplayName == '$fod_query'c" \
-        | grep -v $HOME/Library \
-        | head -1)
+    fod_filepath=$(
+        perl -e '@K=sort{length($a) <=> length($b)}<>; print "$K[0]"' <(
+            mdfind -onlyin $fod_path "kMDItemContentType == public.folder && kMDItemDisplayName == '$fod_query'c" \
+            | grep -v $HOME/Library
+        )
+    )
 
     # Search for exact substring
     if [[ -z $fod_filepath ]]; then
-        fod_filepath=$(mdfind -onlyin $fod_path "kMDItemContentType == public.folder && kMDItemDisplayName == '*$fod_query*'c" \
-            | grep -v $HOME/Library \
-            | head -1)
+        fod_filepath=$(
+            perl -e '@K=sort{length($a) <=> length($b)}<>; print "$K[0]"' <(
+                mdfind -onlyin $fod_path "kMDItemContentType == public.folder && kMDItemDisplayName == '*$fod_query*'c" \
+                | grep -v $HOME/Library
+            )
+        )
     fi
 
     # Fuzzy search
     if [[ -z $fod_filepath ]]; then
         fod_query="*$(echo "$fod_query" | sed 's/./&\*/g')" # query => *q*u*e*r*y*
 
-        fod_filepath=$(mdfind -onlyin $fod_path "kMDItemContentType == public.folder && kMDItemDisplayName == '$fod_query'c" \
-            | grep -v $HOME/Library \
-            | head -1)
+        fod_filepath=$(
+            perl -e '@K=sort{length($a) <=> length($b)}<>; print "$K[0]"' <(
+                mdfind -onlyin $fod_path "kMDItemContentType == public.folder && kMDItemDisplayName == '$fod_query'c" \
+                | grep -v $HOME/Library
+            )
+        )
 
         if [[ -z $fod_filepath ]]; then
             # No matching file
